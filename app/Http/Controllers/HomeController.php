@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 
 class HomeController extends Controller
@@ -29,7 +31,10 @@ class HomeController extends Controller
             $data = User::select('id','name','email')->get();
             return Datatables::of($data)->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $btn = '<div class="flex justify-content-center"><a href="#" class="btn btn-primary btn-sm">Edit</a><a href="#" class="btn btn-warning mx-2 btn-sm">Delete</a></div>';
+                    $btn = '<div class="flex justify-content-center">
+                                <a href="/user/edit/'.$row->id.'" class="btn btn-primary btn-sm">Edit</a>
+                                <button class="btn btn-danger mx-2 btn-sm btn_delete" data-id="'.$row->id.'">Delete</button>
+                             </div>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -39,6 +44,43 @@ class HomeController extends Controller
 
         return view('home');
     }
+
+    public function create(User $user)
+    {
+        return view('create');
+    }
+
+    public function store(User $user)
+    {
+        $attributes = request()->validate([
+            'name' => 'required',
+            'email' => ['required', Rule::unique('users', 'email')],
+            'password' => 'required|min:8|max:255',
+        ]);
+        $attributes['password'] = Hash::make($attributes['password']);
+        $user->update($attributes);
+
+        return back()->with('success', 'User Created!');
+    }
+
+    public function edit(User $user)
+    {
+        return view('edit', ['user' => $user]);
+    }
+
+    public function update(User $user)
+    {
+        $attributes = request()->validate([
+            'name' => 'required',
+            'email' => ['required', Rule::unique('users', 'email')->ignore($user->id)],
+            'password' => 'required|min:8|max:255',
+        ]);
+        $attributes['password'] = Hash::make($attributes['password']);
+        $user->update($attributes);
+
+        return back()->with('success', 'User Updated!');
+    }
+
     public function destroy(User $user)
     {
         $user->delete();

@@ -24,7 +24,16 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('users.index');
 
-Route::delete('admin/posts/{post}', [UserController::class, 'destroy']);
+Route::get('/user/create', [HomeController::class, 'create']);
+Route::post('/user/store', [HomeController::class, 'store']);
+
+
+Route::get('/user/edit/{user}', [HomeController::class, 'edit']);
+Route::patch('/user/update/{user}', [HomeController::class, 'update']);
+
+
+
+Route::delete('delete/{user}', [HomeController::class, 'destroy'])->name('delete');
 //Auth::routes();
 //
 //Route::get('/home', [HomeController::class, 'index'])->name('home');
