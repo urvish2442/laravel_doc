@@ -9,7 +9,7 @@
 
                 </div>
             </div>
-                <form method="POST" action="/user/create" enctype="multipart/form-data" class="d-flex justify-content-center">
+                <form method="POST" action="/user/store" enctype="multipart/form-data" class="d-flex justify-content-center">
                     @csrf
                     <div class="border border-black p-4 justify-content-center mt-5 rounded-2 col-md-8" >
                         <div class="mb-3 mt-4 my-4">

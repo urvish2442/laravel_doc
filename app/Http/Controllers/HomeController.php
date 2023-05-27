@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserDeleteMail;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 
@@ -28,8 +31,14 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = User::select('id','name','email')->get();
-            return Datatables::of($data)->addIndexColumn()
+            $user = User::select('id','name','email','created_at','updated_at')->get();
+            return Datatables::of($user)->addIndexColumn()
+                ->addColumn('created_at', function ($user) {
+                    return Carbon::parse($user->created_at);
+                })
+                ->addColumn('updated_at', function ($user) {
+                    return Carbon::parse($user->updated_at)->diffForHumans();
+                })
                 ->addColumn('action', function($row){
                     $btn = '<div class="flex justify-content-center">
                                 <a href="/user/edit/'.$row->id.'" class="btn btn-primary btn-sm">Edit</a>
@@ -37,7 +46,7 @@ class HomeController extends Controller
                              </div>';
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['created_at', 'updated_at', 'action'])
                 ->make(true);
 
         }
@@ -58,9 +67,9 @@ class HomeController extends Controller
             'password' => 'required|min:8|max:255',
         ]);
         $attributes['password'] = Hash::make($attributes['password']);
-        $user->update($attributes);
+        User::create($attributes);
 
-        return back()->with('success', 'User Created!');
+        return redirect('/home')->with('success', 'User Created!');
     }
 
     public function edit(User $user)
@@ -83,8 +92,9 @@ class HomeController extends Controller
 
     public function destroy(User $user)
     {
+        $mail = $user->email;
         $user->delete();
-
+        Mail::to($mail)->send(new UserDeleteMail());
         return back()->with('success', 'Post Deleted!');
     }
 }

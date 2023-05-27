@@ -7,11 +7,12 @@
     "require": {
         "php": "^7.3|^8.0",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.7",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
+        "mailgun/mailgun-php": "^3.5",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
@@ -60,6 +61,9 @@
         "sort-packages": true,
         "platform": {
             "php": "7.4.21"
+        },
+        "allow-plugins": {
+            "php-http/discovery": true
         }
     },
     "minimum-stability": "dev",

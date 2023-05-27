@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class HelloEmail extends Mailable
+class UserDeleteMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -28,6 +28,7 @@ class HelloEmail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mail.hello-email');
+        return $this->markdown('mail.user-delete-mail')
+            ->subject('Your Account has been deleted from Laravel_doc.');
     }
 }

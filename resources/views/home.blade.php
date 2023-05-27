@@ -34,6 +34,8 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Created</th>
+                            <th>Updated</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -56,6 +58,8 @@
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
                     {data: 'email', name: 'email'},
+                    {data: 'created_at', name: 'created'},
+                    {data: 'updated_at', name: 'updated'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ]
             });
@@ -75,7 +79,7 @@
                             "_token": token,
                         },
                         success: function (){
-                            console.log("it Works");
+                            console.log("DELETED");
 
                         }
                     });
