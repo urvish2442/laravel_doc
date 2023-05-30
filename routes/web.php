@@ -3,6 +3,7 @@
 //use App\Http\Controllers\EmailController;
 use App\Http\Controllers\HomeController;
 //use App\Http\Controllers\SubscriberController;
+use App\Http\Controllers\UserSubscriptionController;
 use App\Mail\UserDeleteMail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,9 @@ Route::get('/user/edit/{user}', [HomeController::class, 'edit']);
 Route::patch('/user/update/{user}', [HomeController::class, 'update']);
 
 Route::delete('/delete/{user}', [HomeController::class, 'destroy'])->name('delete');
+
+Route::get('/user/subscribe/{user}', [UserSubscriptionController::class, 'create']);
+Route::post('/user/subscribe', [UserSubscriptionController::class, 'store']);
 //Route::get('send-email', [EmailController::class, 'sendEmail']);
 
 //Route::post('/subscribe', [SubscriberController::class, 'subscribe']);

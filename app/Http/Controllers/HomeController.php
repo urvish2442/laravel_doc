@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\UserDeleteMail;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 
@@ -42,7 +40,8 @@ class HomeController extends Controller
                 ->addColumn('action', function($row){
                     $btn = '<div class="flex justify-content-center">
                                 <a href="/user/edit/'.$row->id.'" class="btn btn-primary btn-sm">Edit</a>
-                                <button class="btn btn-danger mx-2 btn-sm btn_delete" data-id="'.$row->id.'">Delete</button>
+                                <a href="/user/subscribe/'.$row->id.'" class="btn btn-secondary mx-2 btn-sm">Subscribe</a>
+                                <button class="btn btn-danger btn-sm btn_delete" data-id="'.$row->id.'">Delete</button>
                              </div>';
                     return $btn;
                 })
@@ -92,9 +91,7 @@ class HomeController extends Controller
 
     public function destroy(User $user)
     {
-        $mail = $user->email;
         $user->delete();
-        Mail::to($mail)->send(new UserDeleteMail());
         return back()->with('success', 'Post Deleted!');
     }
 }

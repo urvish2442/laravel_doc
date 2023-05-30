@@ -9,7 +9,7 @@
 
                 </div>
             </div>
-                <form method="POST" action="/user/update/{{$user->id}}" enctype="multipart/form-data" class="d-flex justify-content-center">
+                <form method="POST" action="/user/update/{{$user->id}}" class="d-flex justify-content-center">
                     @csrf
                     @method('PATCH')
                     <div class="border border-black p-4 justify-content-center mt-5 rounded-2 col-md-8" >

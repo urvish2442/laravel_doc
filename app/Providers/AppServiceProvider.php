@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use App\Observers\UserObserver;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Support\Facades\Gate;
@@ -28,9 +29,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        Model::unguard();
+//        Model::unguard();
         Gate::define('admin', function (User $user) {
             return $user->email === 'test@test.com';
         });
+
+        User::observe(UserObserver::class);
     }
 }

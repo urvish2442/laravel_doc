@@ -1,7 +1,7 @@
 @component('mail::message')
-# Introduction
+Dear User,
 
-The body of your message.
+Your account has been deleted from Laravel_doc.
 
 @component('mail::button', ['url' => ''])
 Button Text

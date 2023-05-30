@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'refnum'
     ];
 
     /**
@@ -41,4 +42,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function subscription()
+    {
+        return $this->hasOne(Subscription::class);
+    }
+//    Accessor:
+//    public function getFullNameAttribute(){
+//        return "{$this->name} {$this->email}";
+//    }
+//    Mutator:
+//    public function setPasswordAttribute($password){
+//        $this->attributes['password'] = bcrypt($password);
+//    }
 }
