@@ -2,9 +2,11 @@
 
 namespace App\Observers;
 
+use App\Jobs\SendDeleteUserEmail;
 use App\Mail\UserDeleteMail;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Queue;
 
 class UserObserver
 {
@@ -43,7 +45,8 @@ class UserObserver
      */
     public function deleted(User $user)
     {
-        Mail::to($user->email)->send(new UserDeleteMail());
+//        Queue::push(new SendDeleteUserEmail($user));
+        Mail::to($user->email)->queue(new UserDeleteMail());
     }
 
     /**

@@ -34,6 +34,5 @@ class AppServiceProvider extends ServiceProvider
             return $user->email === 'test@test.com';
         });
 
-        User::observe(UserObserver::class);
     }
 }

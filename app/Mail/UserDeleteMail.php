@@ -29,6 +29,6 @@ class UserDeleteMail extends Mailable
     public function build()
     {
         return $this->markdown('mail.user-delete-mail')
-            ->subject('Your Account has been deleted from Laravel_doc.');
+            ->subject('Account Deletion Confirmation');
     }
 }
