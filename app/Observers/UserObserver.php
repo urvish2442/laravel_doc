@@ -46,7 +46,9 @@ class UserObserver
     public function deleted(User $user)
     {
 //        Queue::push(new SendDeleteUserEmail($user));
-        Mail::to($user->email)->queue(new UserDeleteMail());
+//        Mail::to($user->email)->queue(new UserDeleteMail());
+//        SendDeleteUserEmail::dispatch($user);
+        dispatch(new SendDeleteUserEmail($user->email));
     }
 
     /**

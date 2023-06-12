@@ -16,16 +16,16 @@ class SendDeleteUserEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    protected $email;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    protected $user;
 
-    public function __construct(User $user)
+    public function __construct($email)
     {
-        $this->user = $user;
+        $this->email = $email;
     }
 
     /**
@@ -35,6 +35,6 @@ class SendDeleteUserEmail implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->user->email)->send(new UserDeleteMail());
+        Mail::to($this->email)->queue(new UserDeleteMail());
     }
 }

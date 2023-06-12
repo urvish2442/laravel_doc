@@ -18,7 +18,8 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-    <script src="{{ asset('js/datatables.js') }}"></script>
+    <link href="{{ mix('css/datatables.css') }}" rel="stylesheet">
+    <script src="{{ mix('js/datatables.js') }}"></script>
     <!-- for datatable -->
 {{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />--}}
 {{--    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">--}}

@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 //use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\UserSubscriptionController;
 use App\Mail\UserDeleteMail;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,11 @@ Route::delete('/delete/{user}', [HomeController::class, 'destroy'])->name('delet
 
 Route::get('/user/subscribe/{user}', [UserSubscriptionController::class, 'create']);
 Route::post('/user/subscribe', [UserSubscriptionController::class, 'store']);
+
+Route::get('/get-error', function () {
+    $find = User::find(100000)->id;
+    return view('home');
+});
 //Route::get('send-email', [EmailController::class, 'sendEmail']);
 
 //Route::post('/subscribe', [SubscriberController::class, 'subscribe']);
